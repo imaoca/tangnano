@@ -8,12 +8,12 @@ module cpu(input rst,input clk,input[3:0] btn,
     reg [7:0]ram[15:0];
     reg [23:0] counter;
 
-    assign leds[0]=!c_flag;
-    assign leds[1]=1;
-    assign leds[2]=1;
-    assign leds[3]=1;
+    assign leds[0]=!regs[6][0];
+    assign leds[1]=!regs[6][1];
+    assign leds[2]=!regs[6][2];
+    assign leds[3]=!regs[6][3];
     assign leds[4]=1;
-    assign leds[5]=1;
+    assign leds[5]=!c_flag;
     assign col={4'b0000,regs[counter[15:13]]};
     assign row[0]=(counter[15:13]==0?0:1);
     assign row[1]=(counter[15:13]==1?0:1);
@@ -27,7 +27,7 @@ module cpu(input rst,input clk,input[3:0] btn,
     assign dout = ram[regs[7]];
 
     initial begin
-        `include "jnc2.asm"
+        `include "short.asm"
     end
     
 	always @(posedge counter[23]  or negedge rst)
