@@ -1,3 +1,9 @@
+/*
+Extended MVI instruction
+We can use that's kind of instruction
+    ram['b000] <=8'b1010_0110;  // mvi R6,1111000;
+*/
+
 module cpu(input rst,input clk,input[3:0] btn,output [7:0]col, output [7:0]row,output [5:0]leds);
     wire [7:0]dout=ram[regs[7]];
     wire [4:0]op=dout[7:3]; 
@@ -27,11 +33,13 @@ module cpu(input rst,input clk,input[3:0] btn,output [7:0]col, output [7:0]row,o
     ram[3] <=8'b0000_0010;
 */
 
-    ram[0] <=8'b0110_0110;  // inc
-    ram[1] <=8'b1000_0000;  // jnc 
-    ram[2] <=8'b0000_0000;  // 0
-    ram[3] <=8'b1001_0000;  // jmp 
-    ram[4] <=8'b0000_0011;  // 3 
+    ram['b000] <=8'b1010_0110;  // mvi R6,1111000;
+    ram['b001] <=8'b1111_0000;  // 1111_0000  
+    ram['b010] <=8'b0110_0110;  // inc R6
+    ram['b011] <=8'b1000_0000;  // jnc 2
+    ram['b100] <=8'b0000_0010;  // 2
+    ram['b101] <=8'b1001_0000;  // jmp 0
+    ram['b110] <=8'b0000_0000;  // 0 
 
     end
     
@@ -65,13 +73,13 @@ module cpu(input rst,input clk,input[3:0] btn,output [7:0]col, output [7:0]row,o
 /*RROTATE*/	5'b01110: regs[sss]=regs[sss]>>1| (regs[sss]<<3 & 4'b1000);
 /*LROTATE*/	5'b01111: regs[sss]=regs[sss]<<1| (regs[sss]>>3 & 4'b0001);	
 /* JNC */	5'b1000z: op2=1;
-//* JMP */	5'b1001z: begin regs[7]=dout&15;end //op2=2;
-            5'b1001z: op2=2;
-/* MVI */	5'b1010z: op2=3;	
+/* JMP */   5'b1001z: op2=2;
+//* MVI */	5'b1010z: op2=3;
+ /* MVI */	5'b1010z: begin regs[sss]=ram[regs[7]+1];regs[7]=regs[7]+1;end	
 	   endcase		
-//* PC++ */  if(op[4:1]!=4'b1000 && op[4:1]!=4'b1001) regs[7]=regs[7]+1;
-
-       regs[7]=regs[7]+1; 
+//* PC++ */  if(op[4:1]!=4'b1000 && op[4:1]!=4'b1001) regs[7]=regs[7]+1;      
+//       if (op[4:1]!=4'1010) regs[7]=regs[7]+1; 
+         regs[7]=regs[7]+1; 
 	   end
 /*
        else begin
@@ -83,7 +91,7 @@ module cpu(input rst,input clk,input[3:0] btn,output [7:0]col, output [7:0]row,o
        else begin
         if (op2==1) begin regs[7]=(c_flag)?regs[7]+1:dout;c_flag=0;end
         if (op2==2) regs[7]=dout;
-        if (op2==3) begin regs[0]=dout; regs[7]=regs[7]+1;end
+//        if (op2==3) begin regs[0]=dout; regs[7]=regs[7]+1;end
         op2=0;
        end
 end
