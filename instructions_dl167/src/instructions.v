@@ -1,7 +1,7 @@
-// EI(Enable Interrupt) DI(Disable Interrupt)
+// Hold mode
 
+// TBD Fire a shell
 // TBD Key repeat
-// TBD Hold mode
 // TBD STR  ram[8'adr],regs(sss)
 // TBD LD   regs(sss),ram[8'adr]
 // TBD ret 
@@ -9,7 +9,7 @@
 module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:0]row,output [5:0]leds);
     wire [7:0]dout=ram[regs[7]];
     wire [4:0]op=dout[7:3]; 
-	reg c_flag,di;
+	reg c_flag,di,regMode;
 	reg [1:0]op2;
 	reg [7:0]regs[7:0];
     reg [7:0]vregs[7:0];
@@ -19,10 +19,12 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
     assign leds[3:0]=~regs[6][3:0];
     assign leds[4]=1;
     assign leds[5]=!c_flag;
-    assign col=(mode==1)?regs[counter[15:13]]:vregs[counter[15:13]];
+    assign col=(regMode==1)?regs[counter[15:13]]:vregs[counter[15:13]];
     assign row = ~(1<<counter[15:13]);
-    wire clock=(mode==1)?counter[21]:counter[16];
+    wire clock=(regMode==1)?counter[21]:counter[16];
     assign low=0;
+
+	always @(posedge counter[22]) if (mode==0) regMode=~regMode;
 
     initial begin
  //       `include "short.asm"
