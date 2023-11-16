@@ -1,10 +1,7 @@
-// Random
-// LD ram[8'adr],regs(sss)
-// STR regs(sss),ram[8'adr]
-// Dump mode
+// The left and right LED matrix displays were swapped.
 
 // TBD call,ret 
-// TBD longjump,setjump
+// TBD setjmp,logjmp
 
 module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:0]row,output [5:0]leds);
     wire [7:0]dout=ram[regs[7]];
@@ -28,12 +25,13 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
 
 
 //	always @(posedge counter[22]) if (mode==0) regMode=~regMode;
-	always @(posedge counter[22]) if (mode==0) regMode=regMode+1;
-	always @(posedge counter[22]) begin if (btn==4'b1011) y=y+1; if (btn==4'b1101) y=y-1;end 
+	always @(posedge counter[22]) if (rst==0) regMode=0;else if (mode==0) regMode=regMode+1;
+	always @(posedge counter[22]) if (rst==0) y=0;
+        else begin if (btn==4'b1011) y=y-1; if (btn==4'b1101) y=y+1;end 
 
     initial begin
-//        `include "shooting.asm"
-
+        `include "shooting.asm"
+/*
     ram[0] <=8'b11010000;  // jmp 16 go to code
     ram[1] <=16;  
 
@@ -47,7 +45,7 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
     ram[23] <=16; 
 
     ram[24] <=8'b10101010 ;  // 
-
+*/
     end
     
 	always @(posedge clock  or negedge rst)
