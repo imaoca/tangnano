@@ -1,8 +1,5 @@
-// Fire a shell
-// Put the enemy 
-// random (R4 assigned for random)
+// Key repeat
 
-// TBD Key repeat
 // TBD STR  ram[8'adr],regs(sss)
 // TBD LD   regs(sss),ram[8'adr]
 // TBD ret 
@@ -133,6 +130,7 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
         if (regs[5]&8'b1000_0000) regs[7]=2;
         if (regs[5]&8'b0001_0000) regs[7]=4;
         if (regs[5]&8'b0000_1000) regs[7]=6;
+        di = 1;
     end
 end
     always @(posedge clk) counter <= counter + 1;
