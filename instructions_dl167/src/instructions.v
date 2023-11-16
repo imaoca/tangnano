@@ -1,4 +1,4 @@
-// Key repeat
+// Asm file to a separate file.
 
 // TBD STR  ram[8'adr],regs(sss)
 // TBD LD   regs(sss),ram[8'adr]
@@ -25,62 +25,7 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
 	always @(posedge counter[22]) if (mode==0) regMode=~regMode;
 
     initial begin
- //       `include "short.asm"
-
-    ram[0] <=8'b1101_0000;  // jmp 16 go to code
-    ram[1] <=16;            // 16
-    ram[2] <=8'b1101_0000;  // jmp 30 right key   
-    ram[3] <=30;
-    ram[4] <=8'b1101_0000;  // jmp 40 left key
-    ram[5] <=40;
-    ram[6] <=8'b1101_0000;  // jmp 50 left key
-    ram[7] <=50;
-
-    ram[16] <=8'b1110_0011;  // mvi R3,1110_0000;
-    ram[17] <=8'b1110_0000;  // 1110_0000
-    ram[18] <=8'b1110_0010;  // mvi R2,0100_0000;
-    ram[19] <=8'b0100_0000;  // 0100_0000
-
-
-    ram[20] <=8'b10_110_010; // vpoke VR6,R2  
-    ram[21] <=8'b10_111_011; // vpoke VR7,R3  
-    
-    ram[22] <=8'b10_000_100; // vpoke VR0,R4      
-    ram[23] <=8'b1100_0001;  // di=0;
-    ram[24] <=8'b1101_0000;  // jmp 22
-    ram[25] <=22;    
-    
-    ram[30] <=8'b1101_0001;  // di=1;        
-    ram[31] <=8'b01111_011;  // R_rotate R3
-    ram[32] <=8'b01111_010;  // R_rotate R2
-    ram[33] <=8'b1101_0000;  // jmp 20
-    ram[34] <=20;
- 
-    ram[40] <=8'b1101_0001;  // di=1;    
-    ram[41] <=8'b01110_011;  // L_rotate R3
-    ram[42] <=8'b01110_010;  // L_rotate R2     
-    ram[43] <=8'b1101_0000;  // jmp 20
-    ram[44] <=20;
-
-    ram[50] <=8'b1101_0001;  // di=1;   
-    ram[51] <=8'b10_101_010; // vpoke VR5,R2       
-    ram[52] <=8'b10_101_001; // vpoke VR5,R1
-    ram[53] <=8'b10_100_010; // vpoke VR4,R2       
-    ram[54] <=8'b10_100_001; // vpoke VR4,R1
-    ram[55] <=8'b10_011_010; // vpoke VR3,R2       
-    ram[56] <=8'b10_011_001; // vpoke VR3,R1
-    ram[57] <=8'b10_010_010; // vpoke VR2,R2       
-    ram[58] <=8'b10_010_001; // vpoke VR2,R1
-    ram[59] <=8'b10_001_010; // vpoke VR1,R2       
-    ram[60] <=8'b10_001_001; // vpoke VR1,R1
-    ram[61] <=8'b10_000_010; // vpoke VR0,R2       
-    ram[62] <=8'b10_000_001; // vpoke VR0,R1
-    ram[63] <=8'b1101_0000;  // jmp 20
-    ram[64] <=20;   
-
-// DI     8'b1100_0001: di=1;
-// EI     8'b1101_0001: di=0;
-
+        `include "shooting1.asm"
     end
     
 	always @(posedge clock  or negedge rst)
@@ -91,7 +36,6 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
 	   if (op2==0) begin
  	   casez(op)
 /* MOV */	5'b00zzz: regs[op[2:0]]=regs[sss];
-
 /* ADD */	5'b01000: begin regs[0]=regs[0]+regs[sss]; c_flag = (regs[0]+regs[sss] > 255)?1:0;end
 /* OR  */	5'b01001: regs[0]=regs[0]|regs[sss];
 /* AND */	5'b01010: regs[0]=regs[0]&regs[sss];
@@ -100,33 +44,21 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
 /* NOT */	5'b01101: regs[sss]=!regs[sss];
 /*RROTATE*/	5'b01110: regs[sss]=regs[sss]>>1| (regs[sss]<<7 & 8'b10000000);
 /*LROTATE*/	5'b01111: regs[sss]=regs[sss]<<1| (regs[sss]>>7 & 8'b00000001);	
-
-//* JNC */	5'b1100z: op2=1;
-//* JMP */  5'b1101z: op2=2;
 /* MVI */	5'b1110z: begin regs[sss]=ram[regs[7]+1];regs[7]=regs[7]+1;end
 /*VPOKE*/   5'b10zzz: vregs[op[2:0]]=regs[sss];      	
-
-//* MVI */	5'b1110zzzz: begin regs[sss]=ram[regs[7]+1];regs[7]=regs[7]+1;end
-//*VPOKE*/   5'b10zzzzzz: vregs[op[2:0]]=regs[sss];     
-//* DI */    8'b1100_0001: di=1;
-//* EI */    8'b1101_0001: di=0; 	
 	   endcase
 /* JNC */	if (dout==8'b1100_0000)op2=1;
 /* JMP */   if (dout==8'b1101_0000)op2=2;		
             if (dout==8'b1100_0001) di=0;
             if (dout==8'b1101_0001) di=1;
        regs[7]=regs[7]+1;
-//        if (dout[7]==0) regs[7]=regs[7]+1;
 	   end
        else begin
         if (op2==1) begin regs[7]=(c_flag)?regs[7]+1:dout;c_flag=0;end
         if (op2==2) regs[7]=dout;
         op2=0;
        end
-
     if ((op2==0)&&(regs[5]!=0)&&(di==0)) begin 
-//    if ((op2==0)&&(regs[5]!=0)) begin 
-//        regs[4]=regs[7];
         if (regs[5]&8'b1000_0000) regs[7]=2;
         if (regs[5]&8'b0001_0000) regs[7]=4;
         if (regs[5]&8'b0000_1000) regs[7]=6;
