@@ -1,6 +1,6 @@
-// Hold mode
+// Fire a shell
 
-// TBD Fire a shell
+// TBD Put the enemy 
 // TBD Key repeat
 // TBD STR  ram[8'adr],regs(sss)
 // TBD LD   regs(sss),ram[8'adr]
@@ -35,6 +35,8 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
     ram[3] <=25;
     ram[4] <=8'b1101_0000;  // jmp 30 left key
     ram[5] <=30;
+    ram[6] <=8'b1101_0000;  // jmp 50 left key
+    ram[7] <=50;
 
     ram[16] <=8'b1110_0011;  // mvi R3,1110_0000;
     ram[17] <=8'b1110_0000;  // 1110_0000
@@ -58,10 +60,25 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
  
     ram[30] <=8'b1101_0001;  // di=1;    
     ram[31] <=8'b01110_011;  // L_rotate R3
-    ram[32] <=8'b01110_010;  // L_rotate R2
-     
+    ram[32] <=8'b01110_010;  // L_rotate R2     
     ram[33] <=8'b1101_0000;  // jmp 20
     ram[34] <=20;
+
+    ram[50] <=8'b1101_0001;  // di=1;   
+    ram[51] <=8'b10_101_010; // vpoke VR5,R2       
+    ram[52] <=8'b10_101_100; // vpoke VR5,R4
+    ram[53] <=8'b10_100_010; // vpoke VR4,R2       
+    ram[54] <=8'b10_100_100; // vpoke VR4,R4
+    ram[55] <=8'b10_011_010; // vpoke VR3,R2       
+    ram[56] <=8'b10_011_100; // vpoke VR3,R4
+    ram[57] <=8'b10_010_010; // vpoke VR2,R2       
+    ram[58] <=8'b10_010_100; // vpoke VR2,R4
+    ram[59] <=8'b10_001_010; // vpoke VR1,R2       
+    ram[60] <=8'b10_001_100; // vpoke VR1,R4
+    ram[61] <=8'b10_000_010; // vpoke VR0,R2       
+    ram[62] <=8'b10_000_100; // vpoke VR0,R4
+    ram[63] <=8'b1101_0000;  // jmp 20
+    ram[64] <=20;   
 
 // DI     8'b1100_0001: di=1;
 // EI     8'b1101_0001: di=0;
@@ -111,6 +128,7 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
 //        regs[4]=regs[7];
         if (regs[5]&8'b1000_0000) regs[7]=2;
         if (regs[5]&8'b0001_0000) regs[7]=4;
+        if (regs[5]&8'b0000_1000) regs[7]=6;
     end
 end
     always @(posedge clk) counter <= counter + 1;
