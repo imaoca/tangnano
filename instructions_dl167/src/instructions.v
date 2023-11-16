@@ -1,6 +1,7 @@
 // Fire a shell
+// Put the enemy 
+// random (R4 assigned for random)
 
-// TBD Put the enemy 
 // TBD Key repeat
 // TBD STR  ram[8'adr],regs(sss)
 // TBD LD   regs(sss),ram[8'adr]
@@ -31,10 +32,10 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
 
     ram[0] <=8'b1101_0000;  // jmp 16 go to code
     ram[1] <=16;            // 16
-    ram[2] <=8'b1101_0000;  // jmp 25 right key   
-    ram[3] <=25;
-    ram[4] <=8'b1101_0000;  // jmp 30 left key
-    ram[5] <=30;
+    ram[2] <=8'b1101_0000;  // jmp 30 right key   
+    ram[3] <=30;
+    ram[4] <=8'b1101_0000;  // jmp 40 left key
+    ram[5] <=40;
     ram[6] <=8'b1101_0000;  // jmp 50 left key
     ram[7] <=50;
 
@@ -47,36 +48,36 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
     ram[20] <=8'b10_110_010; // vpoke VR6,R2  
     ram[21] <=8'b10_111_011; // vpoke VR7,R3  
     
-    ram[22] <=8'b1100_0001;  // di=0;
-    ram[23] <=8'b1101_0000;  // jmp 23
-    ram[24] <=23;    
+    ram[22] <=8'b10_000_100; // vpoke VR0,R4      
+    ram[23] <=8'b1100_0001;  // di=0;
+    ram[24] <=8'b1101_0000;  // jmp 22
+    ram[25] <=22;    
     
-    ram[25] <=8'b1101_0001;  // di=1;        
-    ram[26] <=8'b01111_011;  // R_rotate R3
-    ram[27] <=8'b01111_010;  // R_rotate R2
-            
-    ram[28] <=8'b1101_0000;  // jmp 20
-    ram[29] <=20;
- 
-    ram[30] <=8'b1101_0001;  // di=1;    
-    ram[31] <=8'b01110_011;  // L_rotate R3
-    ram[32] <=8'b01110_010;  // L_rotate R2     
+    ram[30] <=8'b1101_0001;  // di=1;        
+    ram[31] <=8'b01111_011;  // R_rotate R3
+    ram[32] <=8'b01111_010;  // R_rotate R2
     ram[33] <=8'b1101_0000;  // jmp 20
     ram[34] <=20;
+ 
+    ram[40] <=8'b1101_0001;  // di=1;    
+    ram[41] <=8'b01110_011;  // L_rotate R3
+    ram[42] <=8'b01110_010;  // L_rotate R2     
+    ram[43] <=8'b1101_0000;  // jmp 20
+    ram[44] <=20;
 
     ram[50] <=8'b1101_0001;  // di=1;   
     ram[51] <=8'b10_101_010; // vpoke VR5,R2       
-    ram[52] <=8'b10_101_100; // vpoke VR5,R4
+    ram[52] <=8'b10_101_001; // vpoke VR5,R1
     ram[53] <=8'b10_100_010; // vpoke VR4,R2       
-    ram[54] <=8'b10_100_100; // vpoke VR4,R4
+    ram[54] <=8'b10_100_001; // vpoke VR4,R1
     ram[55] <=8'b10_011_010; // vpoke VR3,R2       
-    ram[56] <=8'b10_011_100; // vpoke VR3,R4
+    ram[56] <=8'b10_011_001; // vpoke VR3,R1
     ram[57] <=8'b10_010_010; // vpoke VR2,R2       
-    ram[58] <=8'b10_010_100; // vpoke VR2,R4
+    ram[58] <=8'b10_010_001; // vpoke VR2,R1
     ram[59] <=8'b10_001_010; // vpoke VR1,R2       
-    ram[60] <=8'b10_001_100; // vpoke VR1,R4
+    ram[60] <=8'b10_001_001; // vpoke VR1,R1
     ram[61] <=8'b10_000_010; // vpoke VR0,R2       
-    ram[62] <=8'b10_000_100; // vpoke VR0,R4
+    ram[62] <=8'b10_000_001; // vpoke VR0,R1
     ram[63] <=8'b1101_0000;  // jmp 20
     ram[64] <=20;   
 
@@ -88,10 +89,12 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
 	always @(posedge clock  or negedge rst)
 	  if(rst==0) {regs[0],regs[1],regs[2],regs[3],regs[4],regs[6],regs[7],c_flag,op2}=0;
 	  else begin
-       regs[5]=~{btn,Abtn,Bbtn,2'b11}; 
+        regs[5]=~{btn,Abtn,Bbtn,2'b11}; 
+        regs[4]=counter[23:16];
 	   if (op2==0) begin
  	   casez(op)
 /* MOV */	5'b00zzz: regs[op[2:0]]=regs[sss];
+
 /* ADD */	5'b01000: begin regs[0]=regs[0]+regs[sss]; c_flag = (regs[0]+regs[sss] > 255)?1:0;end
 /* OR  */	5'b01001: regs[0]=regs[0]|regs[sss];
 /* AND */	5'b01010: regs[0]=regs[0]&regs[sss];
@@ -100,6 +103,7 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
 /* NOT */	5'b01101: regs[sss]=!regs[sss];
 /*RROTATE*/	5'b01110: regs[sss]=regs[sss]>>1| (regs[sss]<<7 & 8'b10000000);
 /*LROTATE*/	5'b01111: regs[sss]=regs[sss]<<1| (regs[sss]>>7 & 8'b00000001);	
+
 //* JNC */	5'b1100z: op2=1;
 //* JMP */  5'b1101z: op2=2;
 /* MVI */	5'b1110z: begin regs[sss]=ram[regs[7]+1];regs[7]=regs[7]+1;end
