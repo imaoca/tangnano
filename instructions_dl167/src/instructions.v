@@ -1,7 +1,5 @@
-// The left and right LED matrix displays were swapped.
-
+// setjmp,logjmp
 // TBD call,ret 
-// TBD setjmp,logjmp
 
 module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:0]row,output [5:0]leds);
     wire [7:0]dout=ram[regs[7]];
@@ -30,22 +28,17 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
         else begin if (btn==4'b1011) y=y-1; if (btn==4'b1101) y=y+1;end 
 
     initial begin
-        `include "shooting.asm"
-/*
+//        `include "shooting.asm"
+
     ram[0] <=8'b11010000;  // jmp 16 go to code
     ram[1] <=16;  
 
-    ram[16] <=8'b11101_000; //  ld R0,(24)
+    ram[16] <=8'b11100_001; // mvi r1,24
     ram[17] <=24;
-    ram[18] <=8'b01100_000;   // inc r0
-    ram[19] <=8'b11110_000; // str (24),R0
-    ram[20] <=24;
-    ram[21] <=8'b11111_100; // random r4;
-    ram[22] <=8'b1101_0000; // jmp 16
-    ram[23] <=16; 
+    ram[18] <=8'b11001_001; // setjmp (r1)
+    ram[19] <=0;
+    ram[20] <=8'b11011_001; // longjmp (r1)
 
-    ram[24] <=8'b10101010 ;  // 
-*/
     end
     
 	always @(posedge clock  or negedge rst)
@@ -68,12 +61,15 @@ module cpu(input rst,mode,clk,Abtn,Bbtn,[3:0]btn,output low,[7:0]col, output [7:
 /* LD  */	5'b11101: begin regs[sss]=ram[ram[regs[7]+1]];regs[7]=regs[7]+1;end
 /* STR */	5'b11110: begin ram[ram[regs[7]+1]]=regs[sss];regs[7]=regs[7]+1;end
 /*RANDOM*/  5'b11111: regs[sss]=counter[23:16];
+/*setjmp*/	5'b11001: begin ram[regs[sss]]=regs[7];end
+/*longjmp*/	5'b11011: begin regs[7]=ram[regs[sss]];end
+
 /*VPOKE*/   5'b10zzz: vregs[op[2:0]]=regs[sss];      	
 	   endcase
-/* JNC */	if (dout==8'b1100_0000)op2=1;
-/* JMP */   if (dout==8'b1101_0000)op2=2;		
-/* EI  */   if (dout==8'b1100_0001) di=0;
-/* DI  */   if (dout==8'b1101_0001) di=1;
+/* JNC */	if (dout==8'b11000_000)op2=1;
+/* JMP */   if (dout==8'b11010_000)op2=2;		
+/* EI  */   if (dout==8'b11000_001) di=0;
+/* DI  */   if (dout==8'b11010_001) di=1;
        regs[7]=regs[7]+1;
 	   end
        else begin
