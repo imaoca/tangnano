@@ -1,4 +1,4 @@
-// Initial code
+// change btn3 for run mode. 
 
 module cpu(
     input clk,
@@ -29,8 +29,8 @@ module cpu(
     assign leds[3]=!regs[6][3];
     assign leds[4]=1;
     assign leds[5]=!c_flag;
-    assign col=(((counter[15:13]==y[2:0])&& (counter[21]))?1<<x:0)^((btn!=4'b1001)?(ram[counter[15:13]+(y&4'b1000)]):regs[counter[15:13]]);
-    assign row = ~(1<<counter[15:13]);
+//    assign col=(((counter[15:13]==y[2:0])&& (counter[21]))?1<<x:0)^((btn!=4'b1001)?(ram[counter[15:13]+(y&4'b1000)]):regs[counter[15:13]]);
+    assign col=(((counter[15:13]==y[2:0])&& (counter[21]))?1<<x:0)^((btn4==1)?(ram[counter[15:13]+(y&4'b1000)]):regs[counter[15:13]]);    assign row = ~(1<<counter[15:13]);
     assign dout = ram[regs[7]];
 //    assign dout = ram[regs[7]][0:7];
 
@@ -52,8 +52,8 @@ module cpu(
 
 
 	always @(posedge counter[23]) begin
-            if (btn!=4'b1001) regs[7]=y;
-
+//            if (btn!=4'b1001) regs[7]=y;
+            if (btn4==0) regs[7]=y;
 /*MOV*/     if (0==(dout&192)) regs[((dout&56)>>3)]=regs[dout&7]; 
 /*ADD*/     if (64==(dout&248)) begin if (regs[0]+regs[dout&7]>15) c_flag=1;regs[0]=regs[dout&7]+regs[0];end
 /*OR*/      if (72==(dout&248)) regs[0]=regs[0]|regs[dout&7];
