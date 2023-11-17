@@ -1,0 +1,37 @@
+GowinSynthesis start
+Running parser ...
+Analyzing Verilog file 'C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v'
+Compiling module 'cpu'("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":3)
+Extracting RAM for identifier 'ram'("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":19)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 8("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":32)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 8("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":33)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 3("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":43)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 4("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":44)
+WARN  (EX3791) : Expression size 5 truncated to fit in target size 4("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":45)
+WARN  (EX3791) : Expression size 4 truncated to fit in target size 3("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":46)
+WARN  (EX3791) : Expression size 5 truncated to fit in target size 4("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":64)
+WARN  (EX3791) : Expression size 5 truncated to fit in target size 4("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":65)
+WARN  (EX3791) : Expression size 5 truncated to fit in target size 4("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":68)
+WARN  (EX3791) : Expression size 5 truncated to fit in target size 4("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":69)
+WARN  (EX3791) : Expression size 25 truncated to fit in target size 24("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":72)
+NOTE  (EX0101) : Current top module is "cpu"
+[5%] Running netlist conversion ...
+WARN  (CV0016) : Input btn4 is unused("C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.v":6)
+Running device independent optimization ...
+[10%] Optimizing Phase 0 completed
+[15%] Optimizing Phase 1 completed
+[25%] Optimizing Phase 2 completed
+Running inference ...
+[30%] Inferring Phase 0 completed
+[40%] Inferring Phase 1 completed
+[50%] Inferring Phase 2 completed
+[55%] Inferring Phase 3 completed
+Running technical mapping ...
+[60%] Tech-Mapping Phase 0 completed
+[65%] Tech-Mapping Phase 1 completed
+[75%] Tech-Mapping Phase 2 completed
+[80%] Tech-Mapping Phase 3 completed
+[90%] Tech-Mapping Phase 4 completed
+[95%] Generate netlist file "C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\impl\gwsynthesis\dpad_right_usb_dl166.vg" completed
+[100%] Generate report file "C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\impl\gwsynthesis\dpad_right_usb_dl166_syn.rpt.html" completed
+GowinSynthesis finish

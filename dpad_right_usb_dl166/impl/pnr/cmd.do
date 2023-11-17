@@ -1,0 +1,11 @@
+-d C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\impl\gwsynthesis\dpad_right_usb_dl166.vg
+-p GW1NR-9C-QFN88P-6
+-pn GW1NR-LV9QN88PC6/I5
+-cst C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\src\cpu.cst
+-cfg C:\Users\imaoca09\OneDrive\source\tangnano\dpad_right_usb_dl166\impl\pnr\device.cfg
+-bit
+-tr
+-ph
+-timing
+-cst_error
+-route_maxfan 23
