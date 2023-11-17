@@ -1,12 +1,43 @@
 IO_LOC "clk" 52;
 
+/*
+IO_LOC "col[7]" 30;
+IO_LOC "col[6]" 33;
+IO_LOC "col[5]" 41;
+IO_LOC "col[4]" 72;
+IO_LOC "col[3]" 42;
+IO_LOC "col[2]" 74;
+IO_LOC "col[1]" 75;
+IO_LOC "col[0]" 40;
+*/
+
+IO_LOC "col[0]" 30;
+IO_LOC "col[1]" 33;
+IO_LOC "col[2]" 41;
+IO_LOC "col[3]" 72;
+IO_LOC "col[4]" 42;
+IO_LOC "col[5]" 74;
+IO_LOC "col[6]" 75;
+IO_LOC "col[7]" 40;
+
+IO_LOC "row[1]" 34;
+IO_LOC "row[3]" 35;
+IO_LOC "row[0]" 51;
+IO_LOC "row[4]" 77;
+IO_LOC "row[6]" 76;
+IO_LOC "row[7]" 73;
+IO_LOC "row[5]" 71;
+IO_LOC "row[2]" 70;
+
+
+/*
 IO_LOC "col[7]" 30;
 IO_LOC "col[6]" 33;
 IO_LOC "row[1]" 34;
 IO_LOC "col[0]" 40;
 IO_LOC "row[3]" 35;
 IO_LOC "col[5]" 41;
-IO_LOC "col[3]" 42;
+
 IO_LOC "row[0]" 51;
 
 IO_LOC "row[4]" 77;
@@ -17,7 +48,7 @@ IO_LOC "row[7]" 73;
 IO_LOC "col[4]" 72;
 IO_LOC "row[5]" 71;
 IO_LOC "row[2]" 70;
-
+*/
 //IO_LOC "clk" 52;
 //IO_LOC "rst" 4;
 IO_LOC "mode" 4;
