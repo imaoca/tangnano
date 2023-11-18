@@ -1,0 +1,41 @@
+GowinSynthesis start
+Running parser ...
+Analyzing Verilog file 'C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v'
+Compiling module 'sequencer'("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":1)
+Extracting RAM for identifier 'cnt'("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":30)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 8("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":8)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 8("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":9)
+WARN  (EX3791) : Expression size 4 truncated to fit in target size 3("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":17)
+WARN  (EX3791) : Expression size 6 truncated to fit in target size 5("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":18)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 5("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":19)
+WARN  (EX3791) : Expression size 32 truncated to fit in target size 3("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":20)
+WARN  (EX3791) : Expression size 30 truncated to fit in target size 29("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":27)
+WARN  (EX3791) : Expression size 17 truncated to fit in target size 16("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":44)
+WARN  (EX3784) : Index 8 is out of range [7:0] for 'cnt'("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":44)
+WARN  (EX3784) : Index 8 is out of range [7:0] for 'frq'("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":44)
+WARN  (EX3784) : Index 8 is out of range [7:0] for 'cnt'("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":44)
+WARN  (EX3784) : Index 8 is out of range [7:0] for 'cnt'("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":44)
+NOTE  (EX0101) : Current top module is "sequencer"
+WARN  (EX0211) : The output port "leds[5]" of module "sequencer" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":1)
+WARN  (EX0211) : The output port "leds[4]" of module "sequencer" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":1)
+WARN  (EX0211) : The output port "leds[3]" of module "sequencer" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":1)
+WARN  (EX0211) : The output port "leds[2]" of module "sequencer" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\src\sequencer.v":1)
+[5%] Running netlist conversion ...
+Running device independent optimization ...
+[10%] Optimizing Phase 0 completed
+[15%] Optimizing Phase 1 completed
+[25%] Optimizing Phase 2 completed
+Running inference ...
+[30%] Inferring Phase 0 completed
+[40%] Inferring Phase 1 completed
+[50%] Inferring Phase 2 completed
+[55%] Inferring Phase 3 completed
+Running technical mapping ...
+[60%] Tech-Mapping Phase 0 completed
+[65%] Tech-Mapping Phase 1 completed
+[75%] Tech-Mapping Phase 2 completed
+[80%] Tech-Mapping Phase 3 completed
+[90%] Tech-Mapping Phase 4 completed
+[95%] Generate netlist file "C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\impl\gwsynthesis\sequencer.vg" completed
+[100%] Generate report file "C:\Users\imaoca09\OneDrive\source\tangnano\sequencer\impl\gwsynthesis\sequencer_syn.rpt.html" completed
+GowinSynthesis finish
