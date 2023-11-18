@@ -1,3 +1,4 @@
+// reverse left to right on LED dot matrix.
 module cpu(
     input clk,
     input [3:0]btn,
@@ -43,10 +44,10 @@ module cpu(
 */
 	always @(posedge counter[21]) begin 
       case(btn)
-        4'b0111: x=x+1;
+        4'b0111: x=x-1;
         4'b1101: y=y+1;
         4'b1011: y=y-1;
-        4'b1110: x=x-1;
+        4'b1110: x=x+1;
 //        4'b1001: y=regs[7];
 	  endcase
       if (mode==1) begin
