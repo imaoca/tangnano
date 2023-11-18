@@ -1,3 +1,5 @@
+// reverse left to right on LED dot matrix.
+
 IO_LOC "clk" 52;
 //IO_LOC "rst" 4;
 IO_LOC "mode" 3;
@@ -43,6 +45,7 @@ IO_LOC "led[2]" 40;
 IO_LOC "led[3]" 71;
 IO_LOC "row" 70;
 */
+/*
 IO_LOC "col[0]" 74;
 IO_LOC "col[1]" 34;
 IO_LOC "col[2]" 40;
@@ -51,6 +54,15 @@ IO_LOC "col[4]" 41;
 IO_LOC "col[5]" 72;
 IO_LOC "col[6]" 76;
 IO_LOC "col[7]" 77;
+*/
+IO_LOC "col[0]" 77;
+IO_LOC "col[1]" 76;
+IO_LOC "col[2]" 72;
+IO_LOC "col[3]" 41;
+IO_LOC "col[4]" 71;
+IO_LOC "col[5]" 40;
+IO_LOC "col[6]" 34;
+IO_LOC "col[7]" 74;
 
 IO_LOC "row[0]" 70;
 IO_LOC "row[1]" 75;
